@@ -24,7 +24,7 @@ func cjdnsTraffic(config bool) {
 	}
 
 	if config {
-		fmt.Println("graph_title Cjdns Peer Traffic")
+		fmt.Println("graph_title CJDNS Peer Traffic")
 		fmt.Println("graph_args --base 1000") // --lower-limit 0")
 		fmt.Println("graph_scale yes")
 		fmt.Println("graph_vlabel bytes")
@@ -35,7 +35,8 @@ func cjdnsTraffic(config bool) {
 		peerName := strings.Split(peer.PublicKey, ".")[0]
 
 		if config {
-			label, _ := key.PubKeyToIP(peer.PublicKey)
+			pubKey, _ := key.DecodePublic(peer.PublicKey)
+			label := pubKey.IP().String()
 			names, _ := net.LookupAddr(label)
 			if len(names) > 0 {
 				label = names[0]
