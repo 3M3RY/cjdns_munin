@@ -22,7 +22,10 @@ func main() {
 
 	f, ok := modes[cmd]
 	if !ok {
-		fmt.Fprintln(os.Stderr, "Unknown command", cmd)
+		fmt.Fprintf(os.Stderr, "Unknown command %q, supported commands:\n", cmd)
+		for k, _ := range modes {
+			fmt.Println(k)
+		}
 		os.Exit(1)
 	}
 	config := false
