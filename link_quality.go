@@ -31,6 +31,7 @@ func cjdnsLinkQuality(config bool) {
 		fmt.Println("graph_category network")
 
 		for _, peer := range stats {
+			fmt.Printf("%+v\n", peer)
 			peerName := strings.Split(peer.PublicKey, ".")[0]
 			pubKey, _ := key.DecodePublic(peer.PublicKey)
 			label := pubKey.IP().String()
@@ -53,10 +54,8 @@ func cjdnsLinkQuality(config bool) {
 
 	for _, peer := range stats {
 		peerName := strings.Split(peer.PublicKey, ".")[0]
-		pubKey, _ := key.DecodePublic(peer.PublicKey)
-		ip := pubKey.IP().String()
 		for _, r := range table {
-			if r.IP == ip {
+			if r.SwitchLabel == peer.SwitchLabel {
 				fmt.Printf("_%s_link.value %s\n", peerName, r.Link)
 				break
 			}
