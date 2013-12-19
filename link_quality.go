@@ -4,7 +4,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/inhies/go-cjdns/key"
 	"net"
 	"os"
 	"strings"
@@ -31,9 +30,8 @@ func cjdnsLinkQuality(config bool) {
 		fmt.Println("graph_category network")
 
 		for _, peer := range stats {
-			peerName := strings.Split(peer.PublicKey, ".")[0]
-			pubKey, _ := key.DecodePublic(peer.PublicKey)
-			label := pubKey.IP().String()
+			peerName := strings.Split(peer.PublicKey.String(), ".")[0]
+			label := peer.PublicKey.IP().String()
 			names, _ := net.LookupAddr(label)
 			if len(names) > 0 {
 				label = names[0]
@@ -52,11 +50,10 @@ func cjdnsLinkQuality(config bool) {
 	table.SortByPath()
 
 	for _, peer := range stats {
-		peerName := strings.Split(peer.PublicKey, ".")[0]
-		pubKey, _ := key.DecodePublic(peer.PublicKey)
-		ip := pubKey.IP().String()
+		peerName := strings.Split(peer.PublicKey.String(), ".")[0]
+		ip := peer.PublicKey.IP()
 		for _, r := range table {
-			if r.IP == ip {
+			if ip.Equal(*r.IP) {
 				fmt.Printf("_%s_link.value %s\n", peerName, r.Link)
 				break
 			}
