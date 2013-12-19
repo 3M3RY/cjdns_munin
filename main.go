@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/inhies/go-cjdns/admin"
+	"github.com/3M3RY/go-cjdns/admin"
 	"os"
 	"strconv"
 	"strings"

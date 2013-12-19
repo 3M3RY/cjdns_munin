@@ -4,7 +4,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/inhies/go-cjdns/key"
 	"net"
 	"os"
 	"strings"
@@ -32,11 +31,10 @@ func cjdnsTraffic(config bool) {
 	}
 
 	for _, peer := range stats {
-		peerName := strings.Split(peer.PublicKey, ".")[0]
+		peerName := strings.Split(peer.PublicKey.String(), ".")[0]
 
 		if config {
-			pubKey, _ := key.DecodePublic(peer.PublicKey)
-			label := pubKey.IP().String()
+			label := peer.PublicKey.IP().String()
 			names, _ := net.LookupAddr(label)
 			if len(names) > 0 {
 				label = names[0]
