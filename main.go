@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/3M3RY/go-cjdns/admin"
+	"github.com/inhies/go-cjdns/admin"
 	"os"
 	"strconv"
 	"strings"
@@ -22,9 +22,9 @@ func main() {
 
 	f, ok := modes[cmd]
 	if !ok {
-		fmt.Fprintf(os.Stderr, "Unknown command %q, supported commands:\n", cmd)
+		fmt.Fprintf(os.Stderr, "Unknown command %q.\nRename or link this binary as one of the following:\n", cmd)
 		for k, _ := range modes {
-			fmt.Println(k)
+			fmt.Println("\t", k)
 		}
 		os.Exit(1)
 	}
